@@ -7,13 +7,19 @@ import { images } from "../constants";
 import CustomButton from "@/components/CustomButton";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useEffect } from "react";
 
 export default function App() {
   const { loading, isLoggedIn } = useGlobalContext();
 
-  if (!loading && isLoggedIn) {
-    return <Redirect to="/home" />;
-  }
+  // if (!loading && isLoggedIn) {
+  //   return <Redirect to="/home" />;
+  // }(
+  useEffect(() => {
+    if (!loading && isLoggedIn) {
+      router.push("/home");
+    }
+  },[loading, isLoggedIn, router])
 
 
 

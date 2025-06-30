@@ -6,6 +6,7 @@ import { signIn } from "@/lib/appwrite";
 import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/constants";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -13,6 +14,7 @@ const SignIn = () => {
     password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const {setUser, setIsLoggedIn } = useGlobalContext();
 
   const handleSignIn = async () => {
     if (!form.email || !form.password) {
@@ -22,9 +24,9 @@ const SignIn = () => {
 
     try {
       const result = await signIn(form.email, form.password);
-      console.log(result, "the result");
-
       // Set global State using context
+      setUser(result);
+      setIsLoggedIn(true);
 
       router.replace("/home");
     } catch (error) {

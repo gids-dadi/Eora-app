@@ -1,13 +1,13 @@
-import { useCallback, useState } from "react";
-import { ResizeMode, Video } from "expo-av";
-import * as Animatable from "react-native-animatable";
+import { useCallback, useEffect, useState } from "react";
+import { useEvent } from 'expo';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import {
   FlatList,
   Image,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-
+import * as Animatable from "react-native-animatable";
 import { icons } from "../constants";
 
 const zoomIn = {
@@ -31,6 +31,24 @@ const zoomOut = {
 const TrendingItem = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
 
+  const player = useVideoPlayer(item.video, (player) => {
+    player.loop = true;
+  });
+
+  const { isPlaying } = useEvent(player, 'playingChange', {
+    isPlaying: player.playing,
+  });
+
+  useEffect(() => {
+    if (play) {
+      try {
+        player.play();
+      } catch (err) {
+        console.error("Player play error:", err);
+      }
+    }
+  }, [play]);
+
   return (
     <Animatable.View
       className="mr-5"
@@ -38,17 +56,12 @@ const TrendingItem = ({ activeItem, item }) => {
       duration={500}
     >
       {play ? (
-        <Video
-          source={{ uri: item.video }}
+        <VideoView
+          player={player}
+          allowsFullscreen
+          allowsPictureInPicture
           className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
-          resizeMode={ResizeMode.CONTAIN}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
+          onError={(error) => console.error("Video Error:", error)}
         />
       ) : (
         <TouchableOpacity
@@ -66,7 +79,7 @@ const TrendingItem = ({ activeItem, item }) => {
 
           <Image
             source={icons.play}
-            className="w-12 h-12 absolute"
+            className="w-10 h-10 absolute"
             resizeMode="contain"
           />
         </TouchableOpacity>
@@ -74,6 +87,7 @@ const TrendingItem = ({ activeItem, item }) => {
     </Animatable.View>
   );
 };
+
 
 const Trending = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[0]);
