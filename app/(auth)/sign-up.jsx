@@ -22,7 +22,9 @@ const SignUp = () => {
     setIsSubmitting(true);
 
     try {
+    
       const result = await createUser(form.email, form.password, form.username);
+      console.log(result, "the result")
 
       // Set global State using context
 
@@ -37,13 +39,13 @@ const SignUp = () => {
   return (
     <SafeAreaView className=" bg-primary h-full">
       <ScrollView>
-        <View className=" w-full  justify-center min-h-[80vh] px-4 my-6">
+        <View className=" w-full gap-5  justify-center min-h-[80vh] px-4">
           <Image
             source={images.logo}
-            className="w-[110px] h-[35px] mx-auto"
+            className="mx-auto min-w-full w-[100px] h-[15px]"
             resizeMode="contain"
           />
-          <Text className="text-white text-2xl text font-semibold font-psemibold">
+          <Text className="text-white text-center text-2xl text font-semibold font-psemibold">
             Register to Eora
           </Text>
 
@@ -72,8 +74,8 @@ const SignUp = () => {
           />
 
           <CustomButton
-            title="Sign in"
-            onPress={handleSignup}
+            title="Sign Up"
+            handlePress={handleSignup}
             containerStyles={"mt-6"}
             isLoading={isSubmitting}
           />

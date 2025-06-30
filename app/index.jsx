@@ -9,20 +9,22 @@ import { useGlobalContext } from "@/context/GlobalProvider";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
-  const { isLoading, isLoggedIn } = useGlobalContext();
+  const { loading, isLoggedIn } = useGlobalContext();
 
-  if (!isLoading && isLoggedIn) {
+  if (!loading && isLoggedIn) {
     return <Redirect to="/home" />;
   }
 
+
+
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className=" flex w-full justify-center items-center  px-4   ">
-          <Image
-            source={images.logo}
-            className="w-[130px] h-[84px] "
-            resizeMode="contain"
+    <SafeAreaView className="bg-primary flex-1 h-full">
+      <ScrollView contentContainerStyle={{ height: "80%" }}>
+        <View className="min-h-[80vh] h-full w-full justify-center gap-4 items-center px-4">
+            <Image
+              source={images.logo}
+              className="mx-auto min-w-full w-[100px] h-[8%]"
+              resizeMode="contain"
           />
 
           <Image
@@ -31,17 +33,18 @@ export default function App() {
             resizeMode="contain"
           />
 
-          <View className="relative t-5">
-            <Text className="text-center text-white font-bold text-3xl">
+          <View className="mt-5 w-[90%]">
+            <Text className="relative  text-center text-white font-bold text-3xl">
               Discover Endless Possibilities with{" "}
               <Text className="text-secondary-200">Eora</Text>
+          
             </Text>
-
-            <Image
+              <Image
               source={images.path}
-              className="w-[120px] h-[15px] absolute -top-4 -right-8"
+              className="absolute -right-8 -bottom-2 max-w-[200px] max-h-[14px]"
               resizeMode="contain"
             />
+
           </View>
           <Text className="text-sm font-p-regular text-gray-100 text-center mt-7">
             Where creativity meets innovation: Embark on a journey of limitless
@@ -53,6 +56,8 @@ export default function App() {
             handlePress={() => {
               router.push("/sign-in");
             }}
+
+            
             containerStyles="w-full mt-7"
           />
         </View>

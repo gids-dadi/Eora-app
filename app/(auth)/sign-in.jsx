@@ -22,6 +22,7 @@ const SignIn = () => {
 
     try {
       const result = await signIn(form.email, form.password);
+      console.log(result, "the result");
 
       // Set global State using context
 
@@ -34,15 +35,15 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView className=" bg-primary h-full">
+    <SafeAreaView className="bg-primary h-full">
       <ScrollView>
-        <View className=" w-full  justify-center min-h-[80vh] px-4 my-6">
+        <View className="w-full justify-center h-full min-h-[80vh] px-4">
           <Image
             source={images.logo}
-            className="w-[110px] h-[35px] mx-auto"
+            className=" mx-auto max-w-32 h-[10px]"
             resizeMode="contain"
           />
-          <Text className="text-white text-2xl text font-semibold font-psemibold">
+          <Text className="text-white text-3xl w-full text-center text font-semibold font-psemibold">
             Log in to Eora
           </Text>
 
@@ -64,19 +65,19 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign in"
-            onPress={handleSignIn}
+            handlePress={handleSignIn}
             containerStyles={"mt-6"}
             isLoading={isSubmitting}
           />
 
           <View className="flex-row justify-center items-center gap-2 mt-6">
-            <Text className="text-gray-100 text-lg font-pregular">
+            <Text className="text-gray-100 text-sm font-pregular">
               Don't have an account?
             </Text>
 
             <Link
               href="/sign-up"
-              className="text-lg font-psemibold text-secondary"
+              className="text-lg font-psemibold text-secondary hover:underline"
             >
               Sign Up
             </Link>

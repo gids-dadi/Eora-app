@@ -5,9 +5,9 @@ import { icons } from "../../constants";
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="items-center justify-center gap-2">
-      <Image source={icon} resizeMode="contain" className="w-6 h-6" />
+      <Image source={icon} height={50} width={50} tintColor={color} className="w-6 h-6" />
       <Text
-        className={` ${focused ? "font-psemibold" : "font-pregular"} text-xs`}
+        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
         style={{ color: color }}
       >
         {name}
@@ -15,20 +15,25 @@ const TabIcon = ({ icon, color, name, focused }) => {
     </View>
   );
 };
+
 const TabsLayout = () => {
   return (
     <>
       <Tabs
-        screenOptions={{ tabBarShowLabel: false }}
-        tabBarActiveTintColor="#ffa001"
-        tabBarInactiveTintColor="#cdcde0"
-        tabBarStyle={{
-          backgroundColor: "#161622",
-          borderTopWidth: 1,
-          borderTopColor: "#232533",
-          height: 80,
-          elevation: 0,
-          shadowOffset: { width: 0, height: 0 },
+        screenOptions={{ 
+          tabBarShowLabel: false, 
+          tabBarActiveTintColor: "#ffa001",
+          tabBarInactiveTintColor: "#cdcde0",
+          tabBarIconStyle: { marginTop: 5 },
+          tabBarStyle: {
+            
+            backgroundColor: "#161622",
+            borderTopWidth: 1,
+            borderTopColor: "#232533",
+            height: 84,
+            elevation: 0,
+            // shadowOffset: { width: 0, height: 0 },
+          }
         }}
       >
         <Tabs.Screen
@@ -69,7 +74,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.create}
+                icon={icons.plus}
                 color={color}
                 name="Create"
                 focused={focused}
